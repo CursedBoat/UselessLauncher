@@ -84,8 +84,8 @@ namespace UselessLauncher.FrontEnd
             string[] fileArray = Directory.GetFiles(@"Games\", "*.json");
             // Add the games
             for (int i = 3; i < fileArray.Count() + 3; i++){
-                int index = i - 2;
-                string fileName = fileArray[index - 1];
+                int index = i - 3;
+                string fileName = fileArray[index];
                 
                 string json = File.ReadAllText(fileName);
                 if ( json == "" || json == null ) { json = @"[{""gameName"":""Error: Bad file"",""absolutePath"":""Error""}]"; }
@@ -100,7 +100,7 @@ namespace UselessLauncher.FrontEnd
                     }
                     catch{
 
-                        if ( Error() ) { Application.Run( App.Library() ); }
+                        if ( Error() ) { Application.Shutdown(); Application.Run( App.Library() ); }
                         
                         static bool Error()
                         {
@@ -119,7 +119,7 @@ namespace UselessLauncher.FrontEnd
                         
                         static bool Error()
                         {
-                            var n = MessageBox.Query(15, 15, "Error", "App directory possibly doesn't exist", "OK");
+                            var n = MessageBox.Query(15, 15, "Error", "App directory possibly doesn't exist or is not an executable.", "OK");
                             return n == 0;
                         }
                     } 
@@ -200,7 +200,7 @@ namespace UselessLauncher.FrontEnd
                     Commands.CreateGameEntry( abbreviationText.Text.ToString(),  nameText.Text.ToString(), pathText.Text.ToString() );
                 }
                 catch{
-                    if ( Error() ) { Application.Run( App.AddGame() ); }
+                    if ( Error() ) {Application.Shutdown(); Application.Run( App.AddGame() ); }
                 }
                 MessageBox.Query(76, 15, "Success!", "The game has been added.", "OK");
             };

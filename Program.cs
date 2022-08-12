@@ -6,12 +6,9 @@
 
     class Startup{
         public static void Main(string[] args){
+            // Runs the program
             Application.Run( App.MainMenu($"UselessLauncher {Variables.ProgramInfo.Version()}") );
-            Application.Shutdown();
-            //Test.Test.Interesting();
-            //UselessLauncher.Backend.Commands.CreateGameDB("CCode");
-            //UselessLauncher.Backend.Commands.CreateGameEntry("CCode", "CrossCode", @"D:\Video Games\CrossCode\CrossCode.exe");
-            
+            Application.Shutdown(); 
         }
     }
 }
