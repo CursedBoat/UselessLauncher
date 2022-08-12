@@ -52,6 +52,12 @@ namespace UselessLauncher.FrontEnd
             return top;
         }
 
+        /// <summary>
+        /// Toplevel function that returns the Library window
+        /// </summary>
+        /// <param name="windowName">Name of the window</param>
+        /// <param name="name">Name of the window (for internal use)</param>
+        /// <returns>Library</returns>
         public static Toplevel Library(string windowName = "Library", string name = "Library"){                 
             Application.Init();  
             var top = Application.Top;
@@ -76,7 +82,7 @@ namespace UselessLauncher.FrontEnd
             );
 
             string[] fileArray = Directory.GetFiles(@"Games\", "*.json");
-            // I think this is how we add the games
+            // Add the games
             for (int i = 3; i < fileArray.Count() + 3; i++){
                 int index = i - 2;
                 string fileName = fileArray[index - 1];
@@ -88,7 +94,7 @@ namespace UselessLauncher.FrontEnd
 
                 var game = new Button(3, i, _game.gameName );
                 game.Clicked += () => {
-                    //MessageBox.Query(76, 15, "Ayo", "Did it just work??!??!?!?$!3215315", "OK");
+                    // Checks for bad files
                     try{
                         if (_game.gameName == "Error: Bad file") { throw new Exception("Bad file"); }
                     }
@@ -103,6 +109,7 @@ namespace UselessLauncher.FrontEnd
                         }
                     }
 
+                    // Launches the game
                     try{
                         UselessLauncher.Backend.Commands.LaunchGame( fileName );
                     }
@@ -126,6 +133,12 @@ namespace UselessLauncher.FrontEnd
             return top;
         }
 
+        /// <summary>
+        /// Topelevel function that returns the AddGame window
+        /// </summary>
+        /// <param name="windowName">Window name</param>
+        /// <param name="name">Window name (internal use)</param>
+        /// <returns>AddGame window</returns>
         public static Toplevel AddGame(string windowName = "Add a game", string name = "AddGame"){
             Application.Init();  
             var top = Application.Top;
@@ -147,6 +160,7 @@ namespace UselessLauncher.FrontEnd
             top.Add( win );
             top.Add( App.Menu( top ) );
 
+            // Setting the textboxes for adding the games
             var _name = new Label("Name: ") { X = 3, Y = 2 };
             var path = new Label("Absolute path: "){
                 X = Pos.Left(_name),
@@ -176,6 +190,7 @@ namespace UselessLauncher.FrontEnd
 
             var addGame = new Button( 3, 6, "Add the game" );
             addGame.Clicked += () => {
+                // Checks for errors
                 try{
                     if (abbreviationText.Text.ToString() == "" || nameText.Text.ToString() == "" || pathText.Text.ToString() == ""){
                         throw new Exception("invalid arguments");
@@ -197,6 +212,11 @@ namespace UselessLauncher.FrontEnd
             return top;
         }
 
+        /// <summary>
+        /// Function that returns the menubar
+        /// </summary>
+        /// <param name="top">Toplevel variable</param>
+        /// <returns>Default menu bar</returns>
         public static MenuBar Menu(Toplevel top){
             var menu = new MenuBar(new MenuBarItem[] {
                         new MenuBarItem ("_File", new MenuItem [] {
