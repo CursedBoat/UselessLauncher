@@ -5,6 +5,7 @@
 
 # Test files
 Frontend/Test.cs
+Games/*.*
 
 # User-specific files
 *.rsuser
